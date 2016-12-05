@@ -17,8 +17,6 @@ class CreateMetricsTable extends Migration
             $table->increments('id');
             $table->integer('session_id')->unsigned();
             $table->foreign('session_id')->references('id')->on('sessions');
-            $table->integer('metric_category_id')->unsigned();
-            $table->foreign('metric_category_id')->references('id')->on('metric_categories');
             $table->integer('metric_name_id')->unsigned();
             $table->foreign('metric_name_id')->references('id')->on('metric_names');
             $table->double('value');
@@ -35,7 +33,6 @@ class CreateMetricsTable extends Migration
     {
         Schema::table('metrics', function ($table) {
             $table->dropForeign(['session_id']);
-            $table->dropForeign(['metric_category_id']);
             $table->dropForeign(['metric_name_id']);
         });
 

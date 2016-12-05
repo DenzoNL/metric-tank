@@ -18,7 +18,7 @@ class CreateGameBuildsTable extends Migration
             $table->integer('game_id')->unsigned();
             $table->foreign('game_id')->references('id')->on('games');
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }
