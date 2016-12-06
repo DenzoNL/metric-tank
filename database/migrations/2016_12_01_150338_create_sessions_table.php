@@ -21,7 +21,7 @@ class CreateSessionsTable extends Migration
             $table->foreign('platform_id')->references('id')->on('platforms');
             $table->integer('game_build_id')->unsigned();
             $table->foreign('game_build_id')->references('id')->on('game_builds');
-            $table->ipAddress('ip_address');
+            $table->ipAddress('ip_address')->nullable();
             $table->timestamps();
         });
     }
