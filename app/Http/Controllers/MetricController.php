@@ -12,6 +12,25 @@ use Illuminate\Http\Request;
 class MetricController extends Controller
 {
     /**
+     * Return the metric for a given id
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $metric = Metric::find($id);
+
+        /* If the metric was not found, return a 404 */
+        if(!$metric) {
+            return response()->json(['message', 'Record not found.'], 404);
+        }
+
+        /* Return the object */
+        return response()->json($metric, 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+
+    }
+    /**
      * Store a new metric
      *
      * @param  Request $request

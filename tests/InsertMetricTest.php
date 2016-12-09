@@ -18,7 +18,7 @@ class InsertMetricTest extends TestCase
 
         $metric = factory(App\Metric::class)->create();
 
-        $this->json('POST', 'api/v1/metrics', [
+        $this->json('POST', 'api/v1/metric', [
             'device_uid' => $metric->session->device->uid,
             'metric_name' => $metric->metric_name->name,
             'platform_name' => $metric->session->platform->name,

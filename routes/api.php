@@ -17,4 +17,5 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::post('/v1/metrics', 'MetricController@store');
+Route::resource('v1/metric', 'MetricController',
+    ['only' => ['store', 'show']]);
