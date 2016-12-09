@@ -168,6 +168,7 @@ return [
          */
 
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
 
         /*
          * Application Service Providers...
