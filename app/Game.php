@@ -12,6 +12,6 @@ class Game extends Model
      */
     public function game_builds()
     {
-        return $this->hasMany('App\'GameBuilds');
+        return $this->hasMany('App\GameBuild');
     }
 }
