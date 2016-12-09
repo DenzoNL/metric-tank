@@ -14,21 +14,19 @@ class InsertMetricTest extends TestCase
      */
     public function testInsertingMetricIntoDatabase()
     {
-//        $device = factory(App\Device::class)->create();
-//        $metric_name = factory(App\MetricName::class)->create();
-//        $platform = factory(App\Platform::class)->create();
-//        $game_build = factory(App\GameBuild::class)->create();
+        $this->withoutMiddleware();
 
         $metric = factory(App\Metric::class)->create();
 
-        $this->json('POST', '/metrics', [
+        $this->json('POST', 'api/v1/metrics', [
             'device_uid' => $metric->session->device->uid,
             'metric_name' => $metric->metric_name->name,
             'platform_name' => $metric->session->platform->name,
             // TODO: Change this to a game build hash rather than id or name
-            'game_build_id' => $metric->game_build->id
+            'game_build_id' => $metric->session->game_build->id,
+            'value' => $metric->value
         ])->seeJson([
-                'created' => true,
-            ]);
+            'created' => true,
+        ]);
     }
 }

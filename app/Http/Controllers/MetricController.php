@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Device;
-use App\GameBuild;
 use App\Metric;
 use App\MetricName;
 use App\Platform;
@@ -28,11 +27,15 @@ class MetricController extends Controller
             'device_id' => $device->id,
             'platform_id' => $platform->id,
             'game_build_id' => $request->game_build_id,
-            'ip_address' => $request->ip()
         ]);
 
-        $metric = Metric::create(['session_id' => $session->id, 'metric_name_id' => $metric_name->name]);
+        $metric = Metric::create(['session_id' => $session->id, 'metric_name_id' => $metric_name->id, 'value' => $request->value]);
 
-        return response()->json(['created' => true]);
+        if($metric) {
+            return response()->json(['created' => true]);
+        }
+        else {
+            return response()->json(['created' => false]);
+        }
     }
 }
