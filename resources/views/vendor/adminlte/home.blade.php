@@ -19,12 +19,10 @@
                     <table class="table table-striped table-bordered dataTable" id="metrics-table">
                         <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Session Id</th>
-                            <th>Metric Name Id</th>
+                            <th>Metric</th>
                             <th>Value</th>
                             <th>Created At</th>
-                            <th>Updated At</th>
                         </tr>
                         </thead>
                     </table>
@@ -44,11 +42,9 @@
                 serverSide: true,
                 ajax: '{!! action('MetricController@getData') !!}',
                 columns: [
-                    {data: 'id', name: 'id'},
                     {data: 'session_id', name: 'session_id'},
-                    {data: 'metric_name_id', name: 'metric_name_id'},
+                    {data: 'name', name: 'name'},
                     {data: 'value', name: 'value'},
-                    {data: 'created_at', name: 'created_at'},
                     {data: 'updated_at', name: 'updated_at'}
                 ]
             });
