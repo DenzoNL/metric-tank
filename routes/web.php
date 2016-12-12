@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
+Route::get('/metrics/data', 'MetricController@getData');
