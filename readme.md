@@ -1,4 +1,4 @@
-## About _Metric Tank_
+## About Metric Tank [![Build Status](https://travis-ci.org/DenzoNL/metric-tank.svg?branch=master)](https://travis-ci.org/DenzoNL/metric-tank)
 
 Metric Tank is is an application for collecting user metrics from video games, although it can be used with any piece of software.
 
