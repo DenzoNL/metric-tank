@@ -43,7 +43,7 @@
                 ajax: '{!! action('MetricController@getData') !!}',
                 columns: [
                     {data: 'session_id', name: 'session_id'},
-                    {data: 'name', name: 'name'},
+                    {data: 'name', name: 'metric_names.name'},
                     {data: 'value', name: 'value'},
                     {data: 'updated_at', name: 'updated_at'}
                 ]
