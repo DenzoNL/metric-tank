@@ -13,7 +13,7 @@ class MetricController extends Controller
     {
         $metrics = DB::table('metrics')
             ->join('metric_names', 'metric_name_id', '=', 'metric_names.id')
-            ->select('metric_names.name', 'metrics.session_id', 'metrics.value', 'metrics.updated_at');
+            ->select('metric_names.name', 'metrics.session_id', 'metrics.value', 'metrics.entries', 'metrics.updated_at');
         return Datatables::of($metrics)->make(true);
     }
 

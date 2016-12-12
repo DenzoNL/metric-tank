@@ -22,6 +22,6 @@ class RetrieveMetricTest extends TestCase
          * that we created
          */
         $this->json('GET', 'api/v1/metric/' . $metric->id)
-            ->seeJsonEquals($metric->toArray());
+            ->seeJson($metric->toArray());
     }
 }

@@ -22,7 +22,8 @@
                             <th>Session Id</th>
                             <th>Metric</th>
                             <th>Value</th>
-                            <th>Created At</th>
+                            <th>Entries</th>
+                            <th>Updated At</th>
                         </tr>
                         </thead>
                     </table>
@@ -45,6 +46,7 @@
                     {data: 'session_id', name: 'session_id'},
                     {data: 'name', name: 'metric_names.name'},
                     {data: 'value', name: 'value'},
+                    {data: 'entries', name: 'entries'},
                     {data: 'updated_at', name: 'updated_at'}
                 ]
             });

@@ -22,7 +22,7 @@ class MetricAPIController extends Controller
         $metric = Metric::find($id);
 
         /* If the metric was not found, return a 404 */
-        if(!$metric) {
+        if (!$metric) {
             return response()->json(['message', 'Record not found.'], 404);
         }
 
@@ -30,6 +30,7 @@ class MetricAPIController extends Controller
         return response()->json($metric, 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 
     }
+
     /**
      * Store a new metric
      *
@@ -48,10 +49,16 @@ class MetricAPIController extends Controller
             'game_build_id' => $request->game_build_id,
         ]);
 
-        $metric = Metric::create(['session_id' => $session->id, 'metric_name_id' => $metric_name->id, 'value' => $request->value]);
+        /* If metric exists*/
+        $metric = Metric::where(['session_id' => $session->id, 'metric_name_id' => $metric_name->id, 'value' => $request->value])->first();
 
-        if($metric) {
-            return response()->json(['created' => true]);
+        if ($metric) {
+            $metric->increment('entries');
+            return response()->json(['created' => true, 'new' => false]);
+        } else if(!$metric) {
+            /* If metric doesn't exist, create it*/
+            $metric = Metric::create(['session_id' => $session->id, 'metric_name_id' => $metric_name->id, 'value' => $request->value]);
+            return response()->json(['created' => true, 'new' => true]);
         }
         else {
             return response()->json(['created' => false]);
