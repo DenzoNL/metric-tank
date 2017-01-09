@@ -16,3 +16,6 @@ Route::get('/', function () {
 });
 
 Route::get('/metrics/data', 'MetricController@getData');
+
+Route::get('games/data', 'GameController@getData');
+Route::resource('games', 'GameController');
