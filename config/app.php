@@ -168,6 +168,7 @@ return [
          */
 
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Former\FormerServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
 
         /*
@@ -241,6 +242,7 @@ return [
          * See: https://github.com/acacha/llum
          */
         'AdminLTE' => Acacha\AdminLTETemplateLaravel\Facades\AdminLTE::class,
+        'Former' => Former\Facades\Former::class,
 
 
     ],

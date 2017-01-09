@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
@@ -36,7 +37,8 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Game::create($request->all());
+        return redirect()->back();
     }
 
     /**
