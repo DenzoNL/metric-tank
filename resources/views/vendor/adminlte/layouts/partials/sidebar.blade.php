@@ -35,8 +35,10 @@
         <!-- Optionally, you can add icons to the links -->
             <li {{ (request()->is('home') ? 'class=active' : '') }}><a href="{{ url('home') }}"><i class='fa fa-home'></i>
                     <span>{{ trans('adminlte_lang::message.home') }}</span></a></li>
-            <li {{ (request()->is('games') ? 'class=active' : '') }}><a href="{{ url('games') }}"><i class='fa fa-home'></i>
+            <li {{ (request()->is('games') ? 'class=active' : '') }}><a href="{{ url('games') }}"><i class='fa fa-gamepad'></i>
                     <span>Games</span></a></li>
+            <li {{ (request()->is('categories') ? 'class=active' : '') }}><a href="{{ url('categories') }}"><i class='fa fa-tags'></i>
+                    <span>Categories</span></a></li>
 
             {{--<li><a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.anotherlink') }}</span></a></li>--}}
             {{--<li class="treeview">--}}
