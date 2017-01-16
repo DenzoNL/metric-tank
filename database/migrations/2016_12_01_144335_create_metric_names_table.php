@@ -16,7 +16,7 @@ class CreateMetricNamesTable extends Migration
         Schema::create('metric_names', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('metric_category_id')->unsigned();
+            $table->integer('metric_category_id')->unsigned()->nullable()->default(NULL);
             $table->foreign('metric_category_id')->references('id')->on('metric_categories');
             $table->timestamps();
         });

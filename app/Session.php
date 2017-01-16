@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Session extends Model
 {
+    protected $guarded = [];
     /**
      * Return the device the session belongs to
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

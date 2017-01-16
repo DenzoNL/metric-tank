@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MetricName extends Model
 {
+    protected $guarded = [];
     /**
      * Get the category the metric name belongs to
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

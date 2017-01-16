@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Platform extends Model
 {
+    protected $guarded = [];
     /**
      * Return the sessions associated with the platform
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
