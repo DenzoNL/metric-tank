@@ -39,6 +39,8 @@
                     <span>Games</span></a></li>
             <li {{ (request()->is('categories') ? 'class=active' : '') }}><a href="{{ url('categories') }}"><i class='fa fa-tags'></i>
                     <span>Categories</span></a></li>
+            <li {{ (request()->is('platforms') ? 'class=active' : '') }}><a href="{{ url('platforms') }}"><i class='fa fa-database'></i>
+                    <span>Platforms</span></a></li>
 
             {{--<li><a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.anotherlink') }}</span></a></li>--}}
             {{--<li class="treeview">--}}

@@ -22,3 +22,6 @@ Route::resource('games', 'GameController');
 
 Route::get('categories/data', 'MetricCategoryController@getData');
 Route::resource('categories', 'MetricCategoryController');
+
+Route::get('platforms/data', 'PlatformController@getData');
+Route::resource('platforms', 'PlatformController');
