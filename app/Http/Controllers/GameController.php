@@ -9,6 +9,11 @@ use Yajra\Datatables\Datatables;
 
 class GameController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -49,7 +54,8 @@ class GameController extends Controller
      */
     public function show($id)
     {
-        //
+        $game = Game::findOrFail($id);
+        return view('games.show', ['game' => $game]);
     }
 
     /**
@@ -90,5 +96,11 @@ class GameController extends Controller
     {
         $games = DB::table('games');
         return Datatables::of($games)->make(true);
+    }
+
+    public function getBuilds($id)
+    {
+        $builds = DB::table('game_builds')->where('game_id', $id)->get();
+        return Datatables::of($builds)->make(true);
     }
 }

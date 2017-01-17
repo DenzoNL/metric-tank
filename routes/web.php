@@ -18,6 +18,8 @@ Route::get('/', function () {
 Route::get('/metrics/data', 'MetricController@getData');
 
 Route::get('games/data', 'GameController@getData');
+Route::get('games/{id}/builds', 'GameController@getBuilds');
+Route::post('games/{game_id}/builds', 'GameBuildController@store');
 Route::resource('games', 'GameController');
 
 Route::get('categories/data', 'MetricCategoryController@getData');

@@ -9,6 +9,10 @@ use Yajra\Datatables\Datatables;
 
 class MetricController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function getData()
     {
         $metrics = DB::table('metrics')

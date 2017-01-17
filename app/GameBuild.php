@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GameBuild extends Model
 {
+    protected $fillable = ['name', 'description'];
     /**
      * Get the game associated with the game build
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
