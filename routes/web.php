@@ -30,3 +30,9 @@ Route::resource('categories', 'MetricCategoryController');
 
 Route::get('platforms/data', 'PlatformController@getData');
 Route::resource('platforms', 'PlatformController');
+
+Route::get('sessions/data', 'SessionController@getData');
+Route::resource('sessions', 'SessionController');
+
+Route::get('devices/data', 'DeviceController@getData');
+Route::resource('devices', 'DeviceController');

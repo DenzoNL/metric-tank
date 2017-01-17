@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\MetricCategory;
-use App\MetricName;
 use DB;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
-class MetricNameController extends Controller
+class SessionController extends Controller
 {
     public function __construct()
     {
@@ -21,7 +19,7 @@ class MetricNameController extends Controller
      */
     public function index()
     {
-        return view('metric_names.index');
+        return view('sessions.index');
     }
 
     /**
@@ -42,8 +40,7 @@ class MetricNameController extends Controller
      */
     public function store(Request $request)
     {
-        MetricName::create($request->all());
-        return redirect()->back();
+        //
     }
 
     /**
@@ -88,15 +85,19 @@ class MetricNameController extends Controller
      */
     public function destroy($id)
     {
-        MetricName::create($request->all());
-        return redirect()->back();
+        //
     }
 
     public function getData()
     {
-        $metric_names = DB::table('metric_names')
-            ->leftJoin('metric_categories', 'metric_names.metric_category_id', '=', 'metric_categories.id')
-            ->select('metric_names.*', 'metric_categories.name AS category_name');
-        return Datatables::of($metric_names)->make(true);
+        // device platform game_build
+        $sessions = DB::table('sessions')
+            ->leftJoin('devices', 'sessions.device_id', '=', 'devices.id')
+            ->leftJoin('platforms', 'sessions.platform_id', '=', 'platforms.id')
+            ->leftJoin('game_builds', 'sessions.game_build_id', '=', 'game_builds.id')
+            ->leftJoin('games', 'game_builds.game_id', '=', 'games.id')
+            ->select('sessions.*', 'devices.uid', 'platforms.name AS platform_name', 'game_builds.name AS game_build_name', 'games.name AS game_name' );
+        return Datatables::of($sessions)->make(true);
     }
+
 }

@@ -43,6 +43,10 @@
                     <span>Metric Names</span></a></li>
             <li {{ (request()->is('platforms') ? 'class=active' : '') }}><a href="{{ url('platforms') }}"><i class='fa fa-database'></i>
                     <span>Platforms</span></a></li>
+            <li {{ (request()->is('sessions') ? 'class=active' : '') }}><a href="{{ url('sessions') }}"><i class='fa fa-clock-o'></i>
+                    <span>Sessions</span></a></li>
+            <li {{ (request()->is('devices') ? 'class=active' : '') }}><a href="{{ url('devices') }}"><i class='fa fa-laptop'></i>
+                    <span>Devices</span></a></li>
 
             {{--<li><a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.anotherlink') }}</span></a></li>--}}
             {{--<li class="treeview">--}}

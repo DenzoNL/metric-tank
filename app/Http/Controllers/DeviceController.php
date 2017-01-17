@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\MetricCategory;
-use App\MetricName;
 use DB;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
-class MetricNameController extends Controller
+class DeviceController extends Controller
 {
     public function __construct()
     {
@@ -21,7 +19,7 @@ class MetricNameController extends Controller
      */
     public function index()
     {
-        return view('metric_names.index');
+        return view('devices.index');
     }
 
     /**
@@ -42,8 +40,7 @@ class MetricNameController extends Controller
      */
     public function store(Request $request)
     {
-        MetricName::create($request->all());
-        return redirect()->back();
+        //
     }
 
     /**
@@ -88,15 +85,12 @@ class MetricNameController extends Controller
      */
     public function destroy($id)
     {
-        MetricName::create($request->all());
-        return redirect()->back();
+        //
     }
 
     public function getData()
     {
-        $metric_names = DB::table('metric_names')
-            ->leftJoin('metric_categories', 'metric_names.metric_category_id', '=', 'metric_categories.id')
-            ->select('metric_names.*', 'metric_categories.name AS category_name');
-        return Datatables::of($metric_names)->make(true);
+        $devices = DB::table('devices');
+        return Datatables::of($devices)->make(true);
     }
 }
