@@ -17,7 +17,7 @@
                         <h3 class="box-title">Games</h3>
                     </div>
                     <div class="box-body">
-                        <table class="table table-striped table-bordered dataTable" id="games-table">
+                        <table class="table table-striped table-hover table-bordered dataTable" id="games-table">
                             <thead>
                             <tr>
                                 <th>Id</th>
@@ -78,6 +78,12 @@
                     {data: 'description', name: 'games.description'}
                 ]
             });
+            var table = $('#games-table').DataTable();
+
+            $('#games-table tbody').on('click', 'tr', function () {
+                var data = table.row( this ).data();
+                window.open(window.location.href + '/' + data['id'], "_self");
+            } );
         });
     </script>
 @endsection
