@@ -38,7 +38,9 @@
             <li {{ (request()->is('games') ? 'class=active' : '') }}><a href="{{ url('games') }}"><i class='fa fa-gamepad'></i>
                     <span>Games</span></a></li>
             <li {{ (request()->is('categories') ? 'class=active' : '') }}><a href="{{ url('categories') }}"><i class='fa fa-tags'></i>
-                    <span>Categories</span></a></li>
+                    <span>Metric Categories</span></a></li>
+            <li {{ (request()->is('names') ? 'class=active' : '') }}><a href="{{ url('names') }}"><i class='fa fa-th-list'></i>
+                    <span>Metric Names</span></a></li>
             <li {{ (request()->is('platforms') ? 'class=active' : '') }}><a href="{{ url('platforms') }}"><i class='fa fa-database'></i>
                     <span>Platforms</span></a></li>
 

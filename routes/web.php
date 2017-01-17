@@ -22,6 +22,9 @@ Route::get('games/{id}/builds', 'GameController@getBuilds');
 Route::post('games/{game_id}/builds', 'GameBuildController@store');
 Route::resource('games', 'GameController');
 
+Route::get('names/data', 'MetricNameController@getData');
+Route::resource('names', 'MetricNameController');
+
 Route::get('categories/data', 'MetricCategoryController@getData');
 Route::resource('categories', 'MetricCategoryController');
 
