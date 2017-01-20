@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\MetricCategory;
 use App\MetricName;
+use Charts;
 use DB;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -54,7 +55,15 @@ class MetricNameController extends Controller
      */
     public function show($id)
     {
-        //
+        $metricName = MetricName::findOrFail($id);
+
+        $chart = Charts::create('line', 'highcharts')
+            ->title($metricName->name)
+            ->labels(['First', 'Second', 'Third'])
+            ->values([5,10,20])
+            ->responsive(true);
+
+        return view('metric_names.show', compact(['metricName', 'chart']));
     }
 
     /**

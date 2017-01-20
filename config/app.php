@@ -168,6 +168,7 @@ return [
          */
 
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
         Former\FormerServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
 
@@ -235,6 +236,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /*
+         * Package Aliases
+         * */
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
 
         /*
          * Acacha Llum Aliases...

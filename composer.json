@@ -11,7 +11,8 @@
         "spatie/laravel-slack-slash-command": "^1.2",
         "doctrine/dbal": "^2.5",
         "yajra/laravel-datatables-oracle": "~6.0",
-        "anahkiasen/former": "^4.0"
+        "anahkiasen/former": "^4.0",
+        "consoletvs/charts": "3.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
