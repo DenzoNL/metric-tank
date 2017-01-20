@@ -21,6 +21,7 @@
                             <thead>
                             <tr>
                                 <th>Id</th>
+                                <th>API Key</th>
                                 <th>Name</th>
                                 <th>Description</th>
                             </tr>
@@ -74,6 +75,7 @@
                 ajax: '{!! action('GameController@getData') !!}',
                 columns: [
                     {data: 'id', name: 'id'},
+                    {data: 'api_key', name: 'api_key'},
                     {data: 'name', name: 'games.name'},
                     {data: 'description', name: 'games.description'}
                 ]
@@ -81,9 +83,17 @@
             var table = $('#games-table').DataTable();
 
             $('#games-table tbody').on('click', 'tr', function () {
-                var data = table.row( this ).data();
-                window.open(window.location.href + '/' + data['id'], "_self");
-            } );
+                var sel = getSelection().toString();
+                if (!sel) {
+                    var data = table.row(this).data();
+                    window.open(window.location.href + '/' + data['id'], "_self");
+                }
+            });
+
+//            $('#games-table tbody').on('click', 'tr', function () {
+//                var data = table.row( this ).data();
+//                window.open(window.location.href + '/' + data['id'], "_self");
+//            } );
         });
     </script>
 @endsection

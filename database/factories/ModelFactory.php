@@ -125,7 +125,8 @@ $factory->define(App\Metric::class, function (Faker\Generator $faker) {
         'metric_name_id' => function () {
             return factory(App\MetricName::class)->create()->id;
         },
-        'value' => $faker->randomFloat(4, 0, 16)
+        'value' => $faker->randomNumber(3),
+        'entries' => $faker->randomDigit(),
     ];
 });
 

@@ -42,7 +42,11 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        Game::create($request->all());
+        $game = new Game;
+        $game->fill($request->all());
+        $game->api_key = str_random(32);
+        $game->save();
+
         return redirect()->back();
     }
 

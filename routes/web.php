@@ -11,6 +11,8 @@
 |
 */
 
+use App\DataTables\MetricsDataTable;
+
 Route::get('/', function () {
     return redirect()->route('login');
 });

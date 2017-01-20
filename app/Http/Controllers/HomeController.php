@@ -7,7 +7,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
+use App\DataTables\MetricsDataTable;
+use Yajra\Datatables\Html\Builder;
 use Illuminate\Http\Request;
 
 /**
@@ -29,10 +30,12 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return Response
+     * @param MetricsDataTable $dataTable
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function index()
+    public function index(MetricsDataTable $dataTable)
     {
-        return view('adminlte::home');
+        //return $dataTable->ajax();
+        return $dataTable->render('adminlte::home');
     }
 }

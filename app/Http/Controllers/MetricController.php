@@ -13,6 +13,7 @@ class MetricController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function getData()
     {
         $metrics = DB::table('metrics')
@@ -20,5 +21,7 @@ class MetricController extends Controller
             ->select('metric_names.name', 'metrics.session_id', 'metrics.value', 'metrics.entries', 'metrics.updated_at');
         return Datatables::of($metrics)->make(true);
     }
+
+
 
 }
