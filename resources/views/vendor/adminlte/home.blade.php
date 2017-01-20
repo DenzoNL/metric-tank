@@ -27,7 +27,7 @@
                         {{--</tr>--}}
                         {{--</thead>--}}
                     {{--</table>--}}
-                    {!! $dataTable->table(['class' => 'table table-bordered', true]) !!}
+                    {!! $dataTable->table(['class' => 'table table-bordered', true], true) !!}
                 </div>
             </div>
         </div>
@@ -41,10 +41,35 @@
     <script src="{{ asset('/plugins/datatables/dataTables.bootstrap.js') }}"></script>
     {!! $dataTable->scripts() !!}
     <script>
-        var table = window.LaravelDataTables["dataTableBuilder"];
-        setInterval( function () {
-            table.ajax.reload(); // user paging is not reset on reload
-        }, 10000 );
+        $(document).ready(function() {
+            var table = window.LaravelDataTables["dataTableBuilder"];
+
+            setInterval( function () {
+                table.ajax.reload(); // user paging is not reset on reload
+            }, 10000 );
+
+            $('#dataTableBuilder tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="text" class="form-control input-sm" placeholder="Search '+title+'" />' );
+            } );
+
+            table.columns().every( function () {
+                var that = this;
+
+                $( 'input', this.footer() ).on( 'keyup change', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+
+            $('#dataTableBuilder tfoot tr').appendTo('#dataTableBuilder thead');
+
+        })
+
+
     </script>
     {{--<script>--}}
         {{--$(document).ready(function () {--}}
