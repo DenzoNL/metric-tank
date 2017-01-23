@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Metric;
 use App\MetricCategory;
 use App\MetricName;
+use Carbon\Carbon;
 use Charts;
 use DB;
 use Illuminate\Http\Request;
@@ -57,10 +59,18 @@ class MetricNameController extends Controller
     {
         $metricName = MetricName::findOrFail($id);
 
+        $thisMonth = Carbon::now();
+        $lastMonth = Carbon::now()->subMonth(1);
+        $lastMonth2 = Carbon::now()->subMonth(2);
+
+        $thisMonthMetrics = Metric::whereMonth('created_at', $thisMonth->month)->where('metric_name_id', $id)->get();
+        $lastMonthMetrics = Metric::whereMonth('created_at', $lastMonth->month)->where('metric_name_id', $id)->get();
+        $lastMonth2Metrics = Metric::whereMonth('created_at', $lastMonth2->month)->where('metric_name_id', $id)->get();
+
         $chart = Charts::create('line', 'highcharts')
             ->title($metricName->name)
-            ->labels(['First', 'Second', 'Third'])
-            ->values([5,10,20])
+            ->labels([$lastMonth2->format('F'), $lastMonth->format('F'), $thisMonth->format('F')])
+            ->values([$lastMonth2Metrics->sum('entries') ,$lastMonthMetrics->sum('entries'), $thisMonthMetrics->sum('entries')])
             ->responsive(true);
 
         return view('metric_names.show', compact(['metricName', 'chart']));

@@ -14,7 +14,7 @@
             <div class="col-lg-6">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Average Value</h3>
+                        <h3 class="box-title">Number of entries by Month</h3>
                     </div>
                     <div class="box-body" style="height: 300px;">
                         <div class="chart">
