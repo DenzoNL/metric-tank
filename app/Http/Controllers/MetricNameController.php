@@ -67,13 +67,31 @@ class MetricNameController extends Controller
         $lastMonthMetrics = Metric::whereMonth('created_at', $lastMonth->month)->where('metric_name_id', $id)->get();
         $lastMonth2Metrics = Metric::whereMonth('created_at', $lastMonth2->month)->where('metric_name_id', $id)->get();
 
-        $chart = Charts::create('line', 'highcharts')
+        $metrics = Metric::all()->unique('value');
+
+        $chart1 = Charts::create('line', 'highcharts')
             ->title($metricName->name)
+            ->elementLabel('Entries')
             ->labels([$lastMonth2->format('F'), $lastMonth->format('F'), $thisMonth->format('F')])
-            ->values([$lastMonth2Metrics->sum('entries') ,$lastMonthMetrics->sum('entries'), $thisMonthMetrics->sum('entries')])
+            ->values([$lastMonth2Metrics->sum('entries'), $lastMonthMetrics->sum('entries'), $thisMonthMetrics->sum('entries')])
             ->responsive(true);
 
-        return view('metric_names.show', compact(['metricName', 'chart']));
+        $chart2 = Charts::create('line', 'highcharts')
+            ->title($metricName->name)
+            ->elementLabel('Entries')
+            ->labels([$lastMonth2->format('F'), $lastMonth->format('F'), $thisMonth->format('F')])
+            ->values([$lastMonth2Metrics->avg('entries') ?? 0, $lastMonthMetrics->avg('entries') ?? 0, $thisMonthMetrics->avg('entries') ?? 0])
+            ->responsive(true);
+
+        $chart3 = Charts::create('bar', 'highcharts')
+            ->title($metricName->name)
+            ->elementLabel("Values")
+            ->values($metrics->pluck('entries'))
+            ->labels($metrics->pluck('value'))
+            ->responsive(true);
+
+
+        return view('metric_names.show', compact(['metricName', 'chart1', 'chart2', 'chart3']));
     }
 
     /**

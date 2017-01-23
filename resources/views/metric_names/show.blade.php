@@ -18,7 +18,33 @@
                     </div>
                     <div class="box-body" style="height: 300px;">
                         <div class="chart">
-                            {!! $chart->render() !!}
+                            {!! $chart1->render() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Average number of entries by Month</h3>
+                    </div>
+                    <div class="box-body" style="height: 300px;">
+                        <div class="chart">
+                            {!! $chart2->render() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Value prevalence</h3>
+                    </div>
+                    <div class="box-body" style="height: 300px;">
+                        <div class="chart">
+                            {!! $chart3->render() !!}
                         </div>
                     </div>
                 </div>
