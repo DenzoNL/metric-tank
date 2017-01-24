@@ -17,6 +17,7 @@ class MetricNameController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -40,7 +41,7 @@ class MetricNameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -52,7 +53,7 @@ class MetricNameController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -63,12 +64,43 @@ class MetricNameController extends Controller
         $lastMonth = Carbon::now()->subMonth(1);
         $lastMonth2 = Carbon::now()->subMonth(2);
 
+        /* Gather metrics by month */
         $thisMonthMetrics = Metric::whereMonth('created_at', $thisMonth->month)->where('metric_name_id', $id)->get();
         $lastMonthMetrics = Metric::whereMonth('created_at', $lastMonth->month)->where('metric_name_id', $id)->get();
         $lastMonth2Metrics = Metric::whereMonth('created_at', $lastMonth2->month)->where('metric_name_id', $id)->get();
 
-        $metrics = Metric::all()->unique('value');
+        /* Gather number of entries per unique value */
+        $metrics = Metric::where('metric_name_id', $id)->get();
+        $uniques = $metrics->unique('value')->sortBy('value');
+        $result = collect();
 
+        foreach ($uniques as $unique) {
+            $result->push(['value' => $unique->value, 'entries' => $metrics->where('value', $unique->value)->sum('entries')]);
+        }
+
+        $avg_thisMonth = collect();
+        $avg_lastMonth = collect();
+        $avg_lastMonth2 = collect();
+
+        foreach ($thisMonthMetrics as $metric) {
+            for ($i = 0; $i < $metric->entries; $i++) {
+                $avg_thisMonth->push(['value' => $metric->value]);
+            }
+        }
+
+        foreach ($lastMonthMetrics as $metric) {
+            for ($i = 0; $i < $metric->entries; $i++) {
+                $avg_lastMonth->push(['value' => $metric->value]);
+            }
+        }
+
+        foreach ($lastMonth2Metrics as $metric) {
+            for ($i = 0; $i < $metric->entries; $i++) {
+                $avg_lastMonth2->push(['value' => $metric->value]);
+            }
+        }
+
+        /* Generate charts */
         $chart1 = Charts::create('line', 'highcharts')
             ->title($metricName->name)
             ->elementLabel('Entries')
@@ -85,19 +117,26 @@ class MetricNameController extends Controller
 
         $chart3 = Charts::create('bar', 'highcharts')
             ->title($metricName->name)
-            ->elementLabel("Values")
-            ->values($metrics->pluck('entries'))
-            ->labels($metrics->pluck('value'))
+            ->elementLabel("Entries")
+            ->values($result->pluck('entries'))
+            ->labels($result->pluck('value'))
+            ->responsive(true);
+
+        $chart4 = Charts::create('line', 'highcharts')
+            ->title($metricName->name)
+            ->elementLabel('Value')
+            ->labels([$lastMonth2->format('F'), $lastMonth->format('F'), $thisMonth->format('F')])
+            ->values([$avg_lastMonth2->avg('value') ?? 0, $avg_lastMonth->avg('value') ?? 0, $avg_thisMonth->avg('value') ?? 0])
             ->responsive(true);
 
 
-        return view('metric_names.show', compact(['metricName', 'chart1', 'chart2', 'chart3']));
+        return view('metric_names.show', compact(['metricName', 'chart1', 'chart2', 'chart3', 'chart4']));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -108,8 +147,8 @@ class MetricNameController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -120,7 +159,7 @@ class MetricNameController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
