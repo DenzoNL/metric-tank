@@ -17,7 +17,7 @@
                         <h3 class="box-title">Metric Names</h3>
                     </div>
                     <div class="box-body">
-                        <table class="table table-striped table-bordered dataTable" id="names-table">
+                        <table class="table table-striped table-bordered table-hover dataTable" id="names-table">
                             <thead>
                             <tr>
                                 <th>Id</th>
@@ -77,6 +77,16 @@
                     {data: 'name', name: 'metric_names.name'},
                     {data: 'category_name', name: 'metric_categories.name'}
                 ]
+            });
+
+            var table = $('#names-table').DataTable();
+
+            $('#names-table tbody').on('click', 'tr', function () {
+                var sel = getSelection().toString();
+                if (!sel) {
+                    var data = table.row(this).data();
+                    window.open(window.location.href + '/' + data['id'], "_self");
+                }
             });
         });
     </script>
